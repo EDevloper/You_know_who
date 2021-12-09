@@ -1,0 +1,41 @@
+IN THE SETUP
+
+import os
+
+#load music
+pygame.mixer.init()
+s = 'sound'
+music = pygame.mixer.music.load(os.path.join(s, '222.mp3'))
+pygame.mixer.music.play(-1)
+shoot_sound = pygame.mixer.Sound(os.path.join(s, 'pistol.mp3'))
+pygame.mixer.music.play(1)
+#moving_sound = pygame.mixer.Sound(os.path.join(s, 'moving.mp3'))
+pygame.mixer.music.play(1)
+pygame.mixer.music.set_volume(0.5)
+shoot_sound.set_volume(0.2)
+#moving_sound.set_volume(0.2)
+
+
+IN THE SPRITES
+
+
+    def new_bullet(self):
+        if self.till==False:
+            keylist = pygame.key.get_pressed()
+            if not keylist[pygame.K_SPACE]:
+                self.trigger=0
+     # I'm sure there is a more efficient way of checking if someone clicked enter
+            if keylist[pygame.K_SPACE] and self.trigger==0:
+                if self.facing=='up':
+                    Bullet(self.rect.x,self.rect.y,'up') # does this create multiple bullets since the space input is recorded many times
+                    shoot_sound.play()
+                elif self.facing=='down': # do the coordinates work with self.x or only self.rect.x, check with player position translation as well
+                    Bullet(self.rect.x,self.rect.y,'down') # does this create multiple bullets since the space input is recorded many times
+                    shoot_sound.play()
+                elif self.facing=='left':
+                    Bullet(self.rect.x,self.rect.y,'left') # does this create multiple bullets since the space input is recorded many times                  
+                    shoot_sound.play()
+                elif self.facing=='right':
+                    Bullet(self.rect.x,self.rect.y,'right') # does this create multiple bullets since the space input is recorded many times                  
+                    shoot_sound.play()
+                self.trigger=1
